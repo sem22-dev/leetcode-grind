@@ -11,8 +11,6 @@ function topKFrequent(nums, k) {
     }
 
     // [...freq_Map.entries()] or Array.from(freq_Map) gives the same result
-    let sorted_num = Array.from(freq_map).sort((a, b) => b[1] - a[1]);
-
-    return sorted_num.slice(0, k).map(x => x[0]);
+    return Array.from(freq_map).sort((a, b) => b[1] - a[1]).slice(0, k).map(x => x[0]);
 
 };
