@@ -24,7 +24,6 @@ class Solution {
             return nums.map(num => (num == 0 ? product : 0))
         }
         // 5.lastly for non_zero numbers , divide the product by the num in nums
-        // can use other methods like for loop here if you dont like map
         else {
             return nums.map(num => product / num)
         }
