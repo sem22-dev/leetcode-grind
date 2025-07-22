@@ -1,35 +1,35 @@
+let nums = [100, 4, 200, 1, 3, 2, 5, 6, 7, 8];
 
-let nums = [1,2,3,5,4,6,7,8,9]
-
-function longestConsecutive(nums){
+function longestConsecutive(nums) {
     let sol = new Solution();
-    return sol.longestConsecutive(nums)
+    return sol.longestConsecutive(nums);
 }
 
-class Solution{
-    longestConsecutive(nums){
-        // 1: check if nums is empty
-        if(nums.length == 0){
-            return 0
-        }
-        // 2: sort and remove duplicates
-        let sorted_nums = [...new Set(nums.sort((a, b) => a - b))]
+class Solution {
+    longestConsecutive(nums) {
+        // Convert to Set for O(1) lookup
+        const num_set = new Set(nums);
 
-        // 3: define longest and current consecutive numbers
-        let longest = 1;
-        let current = 1;
+        let longest = 0;
 
-        // 4: for loop and compare the ith number with the previous one(adding with 1) to check if it is consecutive
-        for(let i = 1; i < sorted_nums.length; i++){
-            if(sorted_nums[i] == sorted_nums[i - 1] + 1){
-                current += 1
-            } else {
-                longest = Math.max(longest, current)
-                current = 1
+        // Check only if it's the start of a sequence
+        for (let num of num_set) {
+            if (!num_set.has(num - 1)) {
+                let current_streak = 1;
+
+                // Count consecutive numbers
+                while (num_set.has(num + 1)) {
+                    num++;
+                    current_streak++;
+                }
+
+                // Update max streak
+                longest = Math.max(longest, current_streak);
             }
         }
-        // 5: return max(longest, current)
-        return Math.max(longest, current)
-        
+
+        return longest;
     }
 }
+
+console.log(longestConsecutive(nums));

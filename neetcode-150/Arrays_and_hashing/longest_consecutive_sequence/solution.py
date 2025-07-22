@@ -1,25 +1,24 @@
 from typing import List
 
-nums = [1,2,3,4,5]
+nums = [100, 4, 200, 1, 3, 2, 5, 6, 7, 8]
 
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
-        if not nums:
-            return 0
-    
-        nums_sort = sorted(set(nums))
+        # Convert to set for O(1) lookups
+        num_set = set(nums)
 
-        longest = 1
-        current = 1
+        longest = 0
 
-        for i in range(1, len(nums_sort)):
-            if nums_sort[i] == nums_sort[i - 1] + 1:
-                current += 1
-            else:
-                longest = max(longest, current)
-                current = 1
+        # Check if num starts a sequence
+        for n in num_set:
+            if n - 1 not in num_set:
+                current_streak = 1
+                while n + 1 in num_set:
+                    n += 1
+                    current_streak += 1
+                longest = max(longest, current_streak)
 
-        return max(longest, current)
-    
+        return longest
+
 sol = Solution()
 print(sol.longestConsecutive(nums))
