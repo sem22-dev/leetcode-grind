@@ -1,13 +1,23 @@
-from collections import defaultdict
+
 from typing import List
+
+
+demo = ["haha", "lol", "burh", "aet", "eat"]
 
 class Solution:
     def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
-        grouped = defaultdict(list)
+        groups = dict()
 
-        for value in strs:
-            sorted_value = ''.join(sorted(value))
+        for n in strs:
+            key = tuple(sorted(n))
 
-            grouped[sorted_value].append(value)
+            if key not in groups:
+                groups[key] = []
+                
+            groups[key].append(n)   
+        
+        return list(groups.values())
+    
+sol = Solution()
 
-        return list(grouped.values())
+print(sol.groupAnagrams(demo))
